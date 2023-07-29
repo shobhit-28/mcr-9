@@ -1,3 +1,4 @@
 export const types = {
-    
+    ADD_TO_WATCH_LATER: 'ADD_TO_WATCH_LATER',
+    REMOVE_FROM_WATCH_LATER: 'REMOVE_FROM_WATCH_LATER',
 }
