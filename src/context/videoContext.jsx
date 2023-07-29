@@ -6,17 +6,21 @@ import { types } from "./types";
 
 export const VideoContext = createContext();
 
-export const VideoHandler = ({children}) => {
+export const VideoHandler = ({ children }) => {
 
     const {
         ADD_TO_WATCH_LATER,
-        REMOVE_FROM_WATCH_LATER
+        REMOVE_FROM_WATCH_LATER,
+        ADD_COMMENT,
+        EDIT_COMMENT,
+        REMOVE_COMMENT
     } = types
-    
+
     const initialState = {
-        categories : categories,
+        categories: categories,
         videos: videos,
-        watchLaterList: []
+        watchLaterList: [],
+        commentList: []
     }
 
     const [state, dispatch] = useReducer(videoReducer, initialState);
@@ -35,13 +39,46 @@ export const VideoHandler = ({children}) => {
         })
     }
 
+    const addComment = (comment, videoID) => {
+        if (comment?.length !== 0) {
+            dispatch({
+                type: ADD_COMMENT,
+                payload: { comment: comment, videoID: videoID }
+            })
+        } else {
+            alert('Comments cannot be empty')
+        }
+    }
+
+    const editComment = (comment, commentID) => {
+        if (comment?.length !== 0) {
+            dispatch({
+                type: EDIT_COMMENT,
+                payload: { comment: comment, commentID: commentID }
+            })
+        } else {
+            alert('Comments cannot be empty')
+        }
+    }
+
+    const removeComment = (commentID) => {
+        dispatch({
+            type: REMOVE_COMMENT,
+            payload: commentID
+        })
+    }
+
     return (
         <VideoContext.Provider value={{
             addToWatchLater,
             removeFromWatchLater,
+            addComment,
+            editComment,
+            removeComment,
             categories: state.categories,
             videos: state.videos,
             watchLaterList: state.watchLaterList,
+            commentList: state.commentList,
         }}>
             {children}
         </VideoContext.Provider>

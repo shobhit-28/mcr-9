@@ -3,13 +3,16 @@
 import { useContext } from "react"
 import { AiFillClockCircle, AiOutlineClockCircle } from "react-icons/ai"
 import { VideoContext } from "../../context/videoContext"
+import { useNavigate } from "react-router-dom"
 
 export const VideoCard = ({ videoDetails }) => {
     const { addToWatchLater, watchLaterList, removeFromWatchLater } = useContext(VideoContext)
 
+    const navigate = useNavigate()
+
     return (
-        <div className="cursor-pointer relative hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-[0_1px_5px_rgb(0,0,0,0.2)] duration-500">
-            <div className="absolute bg-white right-0 rounded-bl-md text-sky-600">
+        <div className="cursor-pointer relative hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-[0_1px_5px_rgb(0,0,0,0.2)] duration-500" onClick={() => navigate(`/${videoDetails?._id}`)} >
+            <div className="absolute bg-white right-0 rounded-bl-md text-sky-600" onClick={(event) => event.stopPropagation() }>
                 {watchLaterList?.find((id) => id === videoDetails?._id) ?
                     <div className="p-2" onClick={() => removeFromWatchLater(videoDetails._id)}>
                         <AiFillClockCircle />
