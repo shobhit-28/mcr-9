@@ -1,8 +1,10 @@
+import { SideBar } from "./components/sideBar/sideBar"
+
 function App() {
 
   return (
     <div className="App">
-      <p className="text-3xl">Hello</p>
+      <SideBar />
     </div>
   )
 }
