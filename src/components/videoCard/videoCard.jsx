@@ -1,7 +1,24 @@
 /* eslint-disable react/prop-types */
 
-export const VideoCard = ({videoDetails}) => {
-  return (
-    <div>{videoDetails.title}</div>
-  )
+import { AiOutlineClockCircle } from "react-icons/ai"
+
+export const VideoCard = ({ videoDetails }) => {
+    return (
+        <div className="cursor-pointer relative pb-4 hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-[0_1px_5px_rgb(0,0,0,0.2)] duration-500">
+            <div className="absolute p-2 bg-white right-0 rounded-bl-md text-sky-600"><AiOutlineClockCircle /></div>
+            <div className="w-[18.75rem] h-[10.75rem] flex justify-center items-center overflow-hidden">
+                <img src={videoDetails.thumbnail} alt={videoDetails.title} />
+            </div>
+            <div className="flex justify-between py-2 items-center px-1">
+                <div className="flex justify-center items-center">
+                    <img src="https://picsum.photos/40/40" alt="" className="rounded-full" />
+                </div>
+                <div className="w-[15rem]">
+                    <p className="font-semibold">{videoDetails.title}</p>
+                    <p className="font-medium">{videoDetails.category}</p>
+                    <p className="text-black/80">{`${videoDetails.views} views | ${videoDetails.creator}`}</p>
+                </div>
+            </div>
+        </div>
+    )
 }

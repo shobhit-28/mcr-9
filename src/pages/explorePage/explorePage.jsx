@@ -26,7 +26,7 @@ export const ExplorePage = () => {
       <input type="text" name="" id="" className="border outline-none py-2 px-4 my-6 w-full rounded-3xl text-center text-lg font-medium" placeholder="Search video by title" onChange={(event) => searchVideos(event)} />
       {searchResults?.length > 0
         ?
-        <div className="flex flex-wrap gap-8">
+        <div className="flex flex-wrap gap-6">
           {searchResults.map((video) => <VideoCard key={video._id} videoDetails={video} />)}
         </div>
         :
