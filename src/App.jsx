@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom"
 
 import { SideBar } from "./components/sideBar/sideBar"
 import { HomePage } from "./pages/homePage/homePage"
-import { ExplorePage } from "./pages/ExplorePage/explorePage"
+import { ExplorePage } from "./pages/explorePage/explorePage"
 import { PlaylistPage } from "./pages/playlists/playlistPage"
 import { WatchLaterPage } from "./pages/watchLater/watchLaterPage"
 import { SingleVideoPage } from "./pages/singleVideoPage/singleVideoPage"
