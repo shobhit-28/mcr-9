@@ -7,6 +7,7 @@ import { PlaylistPage } from "./pages/playlists/playlistPage"
 import { WatchLaterPage } from "./pages/watchLater/watchLaterPage"
 import { SingleVideoPage } from "./pages/singleVideoPage/singleVideoPage"
 import { SinglePlayListPage } from "./pages/singlePlayListPage/singlePlayListPage"
+import { SingleCategoryPage } from "./pages/singleCategoryPage/singleCategoryPage"
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/playlist" element={<PlaylistPage />}/>
         <Route path="/video/:videoNum" element={<SingleVideoPage />}/>
         <Route path="/playlist/:playListID" element={<SinglePlayListPage />}/>
+        <Route path="/category/:categoryID" element={<SingleCategoryPage />}/>
       </Routes>
     </div>
   )
