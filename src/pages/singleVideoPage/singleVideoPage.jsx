@@ -10,7 +10,8 @@ import { MdDone } from "react-icons/md"
 import classNames from "classnames"
 
 export const SingleVideoPage = () => {
-    const { videoID } = useParams()
+    const { videoNum } = useParams()
+    const videoID = videoNum.split('-')[1]
 
     const addCommentRef = useRef()
     const addToPlayListRef = useRef()
@@ -81,8 +82,6 @@ export const SingleVideoPage = () => {
             document.removeEventListener("scroll", () => setIsAddToPlayListOpen(false))
         }
     }, [])
-
-    console.log(playList)
 
     return (
         <div className="page">

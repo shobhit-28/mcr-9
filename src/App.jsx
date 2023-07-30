@@ -17,7 +17,7 @@ function App() {
         <Route path="/explore" element={<ExplorePage />}/>
         <Route path="/watchlater" element={<WatchLaterPage />}/>
         <Route path="/playlist" element={<PlaylistPage />}/>
-        <Route path="/:videoID" element={<SingleVideoPage />}/>
+        <Route path="/:videoNum" element={<SingleVideoPage />}/>
       </Routes>
     </div>
   )
