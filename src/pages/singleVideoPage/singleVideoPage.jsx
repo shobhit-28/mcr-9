@@ -8,6 +8,7 @@ import { RiPlayListAddLine } from "react-icons/ri"
 import { PiPencilLineDuotone } from "react-icons/pi"
 import { MdDone } from "react-icons/md"
 import classNames from "classnames"
+import { RestOfTheVideosCard } from "../../components/restOfTheVideosCard/restOfTheVideosCard"
 
 export const SingleVideoPage = () => {
     const { videoNum } = useParams()
@@ -39,6 +40,9 @@ export const SingleVideoPage = () => {
     const [playListDetails, setPlayListDetails] = useState({ playlistName: '', playListDescription: '', videos: [] })
 
     const video = videos?.find((video) => Number(videoID) === video?._id)
+    const restOfVideos = videos?.filter((video) => Number(videoID) !== video?._id)
+
+    console.log(restOfVideos)
 
     const addNewNote = () => {
         addComment(comment, videoID)
@@ -58,7 +62,7 @@ export const SingleVideoPage = () => {
             if (playListDetails.playListDescription !== "") {
                 addVideoToNewPlayList(videoID, playListDetails)
                 setPlayListDetails({ playlistName: '', playListDescription: '', videos: [] })
-                setIsAddToPlayListOpen(false)      
+                setIsAddToPlayListOpen(false)
             } else {
                 alert('Playlist should have a description')
             }
@@ -70,6 +74,16 @@ export const SingleVideoPage = () => {
     const addToExistingPlayListClickHandler = (playListID) => {
         addVideoToExistingPlayList(videoID, playListID)
         setIsAddToPlayListOpen(false)
+    }
+
+    const editCommentHandler = (commentID, comment) => {
+        setIsEditCommentOpen(commentID)
+        setEditedComment(comment)
+    }
+
+    const removeCommentHandler = (commentID) => {
+        removeComment(commentID)
+        setEditedComment('')
     }
 
     useEffect(() => {
@@ -92,8 +106,8 @@ export const SingleVideoPage = () => {
     }, [])
 
     return (
-        <div className="page">
-            <div className="w-3/4">
+        <div className="page flex">
+            <div className="w-[65%]">
 
                 <iframe className="w-full h-[28rem] border" src={video?.src}></iframe>
 
@@ -141,10 +155,10 @@ export const SingleVideoPage = () => {
 
                         {isAddToPlayListOpen &&
                             <div className={classNames("menu shadow-[0_1px_5px_rgb(0,0,0,0.2)] fixed bg-white -mt-8 -ml-[20rem] p-2 rounded-md",
-                            {
-                               '-mt-[8rem]' : playList.length > 2,
-                               '-mt-[16rem] max-h-[32rem] overflow-auto' : playList.length > 4
-                            })} ref={addToPlayListRef}>
+                                {
+                                    '-mt-[8rem]': playList.length > 2,
+                                    '-mt-[16rem] max-h-[32rem] overflow-auto': playList.length > 4
+                                })} ref={addToPlayListRef}>
                                 <p className="mb-2 text-base font-medium">Add to playlist</p>
                                 {playList.length > 0 &&
                                     <>
@@ -193,8 +207,8 @@ export const SingleVideoPage = () => {
                                     <p className="py-2">{comment}</p>
                                 }
                                 <div className="text-xl">
-                                    <button className="mr-4" onClick={() => setIsEditCommentOpen(commentID)}><PiPencilLineDuotone /></button>
-                                    <button onClick={() => removeComment(commentID)}><AiOutlineClose /></button>
+                                    <button className="mr-4" onClick={() => editCommentHandler(commentID, comment)}><PiPencilLineDuotone /></button>
+                                    <button onClick={() => removeCommentHandler(commentID)}><AiOutlineClose /></button>
                                 </div>
                             </div>
                         ))}
@@ -202,6 +216,14 @@ export const SingleVideoPage = () => {
 
                 </div>
 
+            </div>
+            <div className="w-[40%] ml-8 h-[95vh] overflow-auto">
+                <h1 className="text-2xl font-medium mx-2 mb-4">More Videos:</h1>
+                <div className="flex flex-col gap-3 pb-1">
+                    {restOfVideos.map((video) => (
+                        <RestOfTheVideosCard video={video} key={video?._id} />
+                    ))}
+                </div>
             </div>
         </div>
     )
