@@ -1,11 +1,15 @@
 /* eslint-disable react/prop-types */
 import { useContext } from "react"
+import { useNavigate } from "react-router-dom"
+
 import { AiTwotoneDelete } from "react-icons/ai"
 import { VideoContext } from "../../context/videoContext"
 
 export const PlayListCard = ({playListID, playListName, playListDesc, videos }) => {
     const randomWidth = Math.floor(Math.random() * (312 - 300) + 300)
     const randomHeight = Math.floor(Math.random() * (180 - 174) + 174)
+
+    const navigate = useNavigate()
 
     const {removePlayList} = useContext(VideoContext)
 
@@ -15,7 +19,7 @@ export const PlayListCard = ({playListID, playListName, playListDesc, videos }) 
     }
 
     return (
-        <div className="relative cursor-pointer hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-[0_1px_5px_rgb(0,0,0,0.2)] duration-500"> 
+        <div className="relative cursor-pointer hover:shadow-[0_3px_10px_rgb(0,0,0,0.2)] shadow-[0_1px_5px_rgb(0,0,0,0.2)] duration-500" onClick={() => navigate(`/playlist/${playListID}`)}> 
             <button className="absolute bg-white/80 right-0 top-0 p-2 rounded-bl-md z-10 text-red-500" onClick={(event) => deletePlayListHandler(event) }>
                 <AiTwotoneDelete />
             </button>

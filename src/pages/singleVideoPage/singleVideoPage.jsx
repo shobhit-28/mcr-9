@@ -42,8 +42,6 @@ export const SingleVideoPage = () => {
     const video = videos?.find((video) => Number(videoID) === video?._id)
     const restOfVideos = videos?.filter((video) => Number(videoID) !== video?._id)
 
-    console.log(restOfVideos)
-
     const addNewNote = () => {
         addComment(comment, videoID)
         setIsAddCommentOpen(false)
