@@ -13,6 +13,8 @@ export const videoReducer = (state, action) => {
         ADD_TO_PLAYLIST,
         REMOVE_FROM_PLAYLIST,
         ADD_TO_EXISTING_PLAYLIST,
+        ADD_NEW_PLAYLIST,
+        DELETE_PLAYLIST
     } = types
 
     switch (action.type) {
@@ -66,6 +68,24 @@ export const videoReducer = (state, action) => {
                         :
                         playListDetails
                 )
+            }
+
+        case ADD_NEW_PLAYLIST:
+            return {
+                ...state,
+                playList: [...state.playList,
+                {
+                    playListID: uuidv4(),
+                    playListName: action.payload.playlistName,
+                    playListDesc: action.payload.playListDescription,
+                    videos: []
+                }]
+            }
+
+        case DELETE_PLAYLIST:
+            return {
+                ...state,
+                playList: state.playList.filter(({playListID}) => playListID !== action.payload )
             }
 
         default:

@@ -54,9 +54,17 @@ export const SingleVideoPage = () => {
     }
 
     const addToPlayListClickHandler = () => {
-        addVideoToNewPlayList(videoID, playListDetails)
-        setPlayListDetails({ playlistName: '', playListDescription: '', videos: [] })
-        setIsAddToPlayListOpen(false)
+        if (playListDetails.playlistName !== "") {
+            if (playListDetails.playListDescription !== "") {
+                addVideoToNewPlayList(videoID, playListDetails)
+                setPlayListDetails({ playlistName: '', playListDescription: '', videos: [] })
+                setIsAddToPlayListOpen(false)      
+            } else {
+                alert('Playlist should have a description')
+            }
+        } else {
+            alert('Playlist must have a name')
+        }
     }
 
     const addToExistingPlayListClickHandler = (playListID) => {
@@ -134,8 +142,8 @@ export const SingleVideoPage = () => {
                         {isAddToPlayListOpen &&
                             <div className={classNames("menu shadow-[0_1px_5px_rgb(0,0,0,0.2)] fixed bg-white -mt-8 -ml-[20rem] p-2 rounded-md",
                             {
-                               '-mt-32' : playList.length > 2,
-                               '-mt-64 max-h-[32rem] overflow-auto' : playList.length > 4
+                               '-mt-[8rem]' : playList.length > 2,
+                               '-mt-[16rem] max-h-[32rem] overflow-auto' : playList.length > 4
                             })} ref={addToPlayListRef}>
                                 <p className="mb-2 text-base font-medium">Add to playlist</p>
                                 {playList.length > 0 &&

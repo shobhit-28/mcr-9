@@ -16,7 +16,9 @@ export const VideoHandler = ({ children }) => {
         REMOVE_COMMENT,
         ADD_TO_PLAYLIST,
         REMOVE_FROM_PLAYLIST,
-        ADD_TO_EXISTING_PLAYLIST
+        ADD_TO_EXISTING_PLAYLIST,
+        ADD_NEW_PLAYLIST,
+        DELETE_PLAYLIST
     } = types
 
     const initialState = {
@@ -93,6 +95,20 @@ export const VideoHandler = ({ children }) => {
         })
     }
 
+    const addNewPlayList = (playListDetails) => {
+        dispatch({
+            type: ADD_NEW_PLAYLIST,
+            payload: playListDetails
+        })
+    }
+    
+    const removePlayList = (playListID) => {
+        dispatch({
+            type: DELETE_PLAYLIST,
+            payload: playListID
+        })
+    }
+
     return (
         <VideoContext.Provider value={{
             addToWatchLater,
@@ -103,6 +119,8 @@ export const VideoHandler = ({ children }) => {
             addVideoToNewPlayList,
             addVideoToExistingPlayList,
             removeFromPlaylist,
+            addNewPlayList,
+            removePlayList,
             categories: state.categories,
             videos: state.videos,
             watchLaterList: state.watchLaterList,
