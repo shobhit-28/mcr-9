@@ -13,14 +13,18 @@ export const VideoHandler = ({ children }) => {
         REMOVE_FROM_WATCH_LATER,
         ADD_COMMENT,
         EDIT_COMMENT,
-        REMOVE_COMMENT
+        REMOVE_COMMENT,
+        ADD_TO_PLAYLIST,
+        REMOVE_FROM_PLAYLIST,
+        ADD_TO_EXISTING_PLAYLIST
     } = types
 
     const initialState = {
         categories: categories,
         videos: videos,
         watchLaterList: [],
-        commentList: []
+        commentList: [],
+        playList: [],
     }
 
     const [state, dispatch] = useReducer(videoReducer, initialState);
@@ -68,6 +72,27 @@ export const VideoHandler = ({ children }) => {
         })
     }
 
+    const addVideoToNewPlayList = (videoID, playListDetails) => {
+        dispatch({
+            type: ADD_TO_PLAYLIST,
+            payload: {videoID: videoID, playListDetails: playListDetails}
+        })
+    }
+
+    const addVideoToExistingPlayList = (videoID, playListID) => {
+        dispatch({
+            type: ADD_TO_EXISTING_PLAYLIST,
+            payload: {videoID, playListID}
+        })
+    }
+
+    const removeFromPlaylist = (videoID, playListID) => {
+        dispatch({
+            type: REMOVE_FROM_PLAYLIST,
+            payload: {videoID, playListID}
+        })
+    }
+
     return (
         <VideoContext.Provider value={{
             addToWatchLater,
@@ -75,10 +100,14 @@ export const VideoHandler = ({ children }) => {
             addComment,
             editComment,
             removeComment,
+            addVideoToNewPlayList,
+            addVideoToExistingPlayList,
+            removeFromPlaylist,
             categories: state.categories,
             videos: state.videos,
             watchLaterList: state.watchLaterList,
             commentList: state.commentList,
+            playList: state.playList
         }}>
             {children}
         </VideoContext.Provider>

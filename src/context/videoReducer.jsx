@@ -9,7 +9,10 @@ export const videoReducer = (state, action) => {
         REMOVE_FROM_WATCH_LATER,
         ADD_COMMENT,
         EDIT_COMMENT,
-        REMOVE_COMMENT
+        REMOVE_COMMENT,
+        ADD_TO_PLAYLIST,
+        REMOVE_FROM_PLAYLIST,
+        ADD_TO_EXISTING_PLAYLIST,
     } = types
 
     switch (action.type) {
@@ -27,7 +30,43 @@ export const videoReducer = (state, action) => {
             return { ...state, commentList: state.commentList.map((comment) => comment.commentID === action.payload.commentID ? { ...comment, comment: action.payload.comment } : comment) }
 
         case REMOVE_COMMENT:
-            return { ...state, commentList: state.commentList.filter((comment) => comment.commentID !== action.payload ) }
+            return { ...state, commentList: state.commentList.filter((comment) => comment.commentID !== action.payload) }
+
+        case ADD_TO_PLAYLIST:
+            return {
+                ...state,
+                playList: [...state.playList,
+                {
+                    playListID: uuidv4(),
+                    playListName: action.payload.playListDetails.playlistName,
+                    playListDesc: action.payload.playListDetails.playListDescription,
+                    videos: [...action.payload.playListDetails.videos, action.payload.videoID]
+                }],
+            }
+
+        case ADD_TO_EXISTING_PLAYLIST:
+            return {
+                ...state,
+                playList: state?.playList?.map((playListDetails) =>
+                    playListDetails?.playListID === action.payload.playListID
+                        ?
+                        { ...playListDetails, videos: [...playListDetails.videos, action.payload.videoID] }
+                        :
+                        playListDetails
+                )
+            }
+
+        case REMOVE_FROM_PLAYLIST:
+            return {
+                ...state,
+                playList: state?.playList?.map((playListDetails) =>
+                    playListDetails?.playListID === action.payload.playListID
+                        ?
+                        { ...playListDetails, videos: playListDetails.videos.filter((videoID) => videoID !== action.payload.videoID) }
+                        :
+                        playListDetails
+                )
+            }
 
         default:
             return state;
